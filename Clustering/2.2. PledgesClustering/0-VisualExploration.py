@@ -17,7 +17,7 @@ from utils.Visuals import GraphAnalysis
 
 # Load the Indexed data
 DirPpath = Path(os.path.abspath('')).parent # Fetching the current directory path - Specific for ipynb file - For .py: Path(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/"))
-IndexedPath  = str(DirPpath.absolute()) + "\semic_pledges\OutputFiles\IndexedDataV1.csv"  
+IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV1.csv"  
 
 print("The current location of IndexedDataV1.csv is: ", IndexedPath)
 
@@ -28,7 +28,7 @@ print(IndexedData.head()) # Controlling the data loaded
 
 # Load the Topic column from the preprocessed data
 DirPpath = Path(os.path.abspath('')).parent # Fetching the current directory path - Specific for ipynb file - For .py: Path(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/"))
-PreprocessedPath  = str(DirPpath.absolute()) + "\semic_pledges\OutputFiles\PreProcessedData.csv"  
+PreprocessedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\PreProcessedData.csv"  
 Topics = pd.read_csv(PreprocessedPath, index_col=0)
 
 IndexedData["Topic"] = Topics["Topic"].values # Adding a Topic column to the IndexedData dataframe

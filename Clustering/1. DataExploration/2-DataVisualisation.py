@@ -14,7 +14,7 @@ import seaborn as sns # For statistical and data visualization
 """ Uploading the cleaned file: CleanedData.csv """
 
 DirPpath = Path(os.path.abspath('')).parent # Fetching the current directory path's parent
-CSVFilePath = str(DirPpath.absolute()) + "\semic_pledges\OutputFiles\CleanedData.csv"  
+CSVFilePath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\CleanedData.csv"  
 
 print("Current Location of the Data file is :", CSVFilePath)
 

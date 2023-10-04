@@ -19,7 +19,7 @@ from utils.Analysis import tfIdf, wordcloudTfIdf, plotCluster, binaryClass, Disc
 # Load the Indexed data
 DirPpath = Path(os.path.abspath('')).parent # Fetching the current directory path
 
-ResultsPath  = str(DirPpath.absolute()) + "\semic_pledges\OutputFiles\Clusters.xlsx"
+ResultsPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\Clusters.xlsx"
 ResultsDf = pd.read_excel(ResultsPath)  
 
 print(ResultsDf.head()) # Controlling the data loaded

@@ -13,11 +13,11 @@ from utils.Visuals import Tsne, ClusterPlot, tSNEPlot
 # Load the Indexed data
 DirPpath = Path(os.path.abspath('')).parent # Fetching the current directory path
 
-IndexedPath  = str(DirPpath.absolute()) + "\semic_pledges\OutputFiles\IndexedDataV1.csv"
+IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV1.csv"
 IndexedData = pd.read_csv(IndexedPath, index_col=0)  
 
 # Load the Topic column from the preprocessed data
-PreprocessedPath  = str(DirPpath.absolute()) + "\semic_pledges\OutputFiles\PreProcessedData.csv"  
+PreprocessedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\PreProcessedData.csv"  
 Topics = pd.read_csv(PreprocessedPath, index_col=0)
 
 IndexedData["Topic"] = Topics["Topic"].values # Adding a Topic column to the IndexedData dataframe
@@ -36,7 +36,7 @@ yKm = OptiCluster(x, 6)
 ResultsDf = pd.DataFrame() # Dataframe to store all the results we are interested in
 
 # Load the original pledge text column from the cleaned data
-CleanedPath  = str(DirPpath.absolute()) + "\semic_pledges\OutputFiles\CleanedData.csv"  
+CleanedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\CleanedData.csv"  
 PledgeDf = pd.read_csv(CleanedPath, index_col=0)
 
 # Populate the ResultsDf columns with the different results
@@ -75,7 +75,7 @@ for topic in ResultsDf["Topics"]:
 ResultsDf["Area"] = areaList
 
 # Exporting to excel
-ResultsDf.to_excel(str(DirPpath.absolute()) + "\semic_pledges\OutputFiles\Clusters.xlsx")
+ResultsDf.to_excel(str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\Clusters.xlsx")
 
 
 """ Dimensionality reduction for visuals """

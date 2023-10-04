@@ -15,7 +15,7 @@ from langdetect import detect # Language detection models
 """ Uploading the source file: PledgeList.xlsx """
 
 DirPpath = Path(os.path.abspath('')).parent # Fetching the current directory path's parent
-PledgeFilePath = str(DirPpath.absolute()) + "\semic_pledges\InputFile\PledgeList.xlsx"  
+PledgeFilePath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\InputFile\PledgeList.xlsx"  
 
 print("Current Location of the Source file is :", PledgeFilePath)
 
@@ -66,8 +66,8 @@ PledgeEn = PledgeDf[~PledgeDf.index.isin(liste)]
 
 """ Exporting Cleaned Data """
 
-CSVFilePath = str(DirPpath.absolute()) + "\semic_pledges\OutputFiles\CleanedData.csv" 
+CSVFilePath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\CleanedData.csv" 
 PledgeEn.to_csv(CSVFilePath)
 
-CSVFilePathFr = str(DirPpath.absolute()) + "\semic_pledges\OutputFiles\CleanedDataFr.csv" 
+CSVFilePathFr = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\CleanedDataFr.csv" 
 PledgeFr.to_csv(CSVFilePathFr)
