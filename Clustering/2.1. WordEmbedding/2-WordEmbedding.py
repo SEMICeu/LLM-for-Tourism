@@ -15,7 +15,7 @@ import gensim.downloader as api # Helpful for downloading pre-trained models
 """ Loading the pre-processed data """
 
 DirPpath = Path(os.path.abspath('')).parent # Fetching the current directory path
-PledgesCsvPath = str(DirPpath.absolute()) + "\semic_pledges\OutputFiles\PreprocessedData.csv" 
+PledgesCsvPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\PreprocessedData.csv" 
 
 print("The current location of PreprocessedData.csv is: ", PledgesCsvPath)
 
@@ -87,7 +87,7 @@ vectorsW2v = modelw.transform(tokens)
 
 DocIndexV1 = pd.DataFrame(vectorsW2v)# Outputting the indexed pledges file
 
-IndexedPath = str(DirPpath.absolute()) + "\semic_pledges\OutputFiles\IndexedDataV1.csv"
+IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV1.csv"
 DocIndexV1.to_csv(IndexedPath)
 
 

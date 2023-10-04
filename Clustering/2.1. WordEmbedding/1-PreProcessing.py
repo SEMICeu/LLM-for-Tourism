@@ -13,7 +13,7 @@ from utils.PreprocessingFunction import PreProcessing
 """ Loading the cleaned data file: CleanedData.csv """
 
 DirPpath = Path(os.path.abspath('')).parent # Fetching the current directory path
-PledgesCsvPath = str(DirPpath.absolute()) + "\semic_pledges\OutputFiles\CleanedData.csv" 
+PledgesCsvPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\CleanedData.csv" 
 
 print("The current location of CleanedData.csv is: ", PledgesCsvPath)
 
@@ -45,7 +45,7 @@ print(PledgesDf.head())
 
 """ Outputing the pre-process data """
 
-PreProcessedDataPath = str(DirPpath.absolute()) + "\semic_pledges\OutputFiles\PreProcessedData.csv"
+PreProcessedDataPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\PreProcessedData.csv"
 PledgesDf.to_csv(PreProcessedDataPath)
 
 
