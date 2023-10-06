@@ -1,5 +1,9 @@
 
 from utils import scraping, PreProcessing
+from pathlib import Path
+import os
+
+import pandas as pd
 
 ########################################################### Variables ###############################################################################################################################################################################################################################
 
@@ -40,7 +44,8 @@ new_url = ["https://single-market-economy.ec.europa.eu/sectors/tourism/eu-fundin
 
 if __name__=="__main__":
 
-    file = "TransitionPathwayForTourism.pdf" # defining the file from which urls need to be scraped
+    DirPpath = Path(os.path.abspath('')).parent
+    file = str(DirPpath) + "\LLM-for-Tourism\DataCollection\TransitionPathwayForTourism.pdf" # defining the file from which urls need to be scraped
     urls = scraping.addingURLs(scraping.scrapingURLs(file), bad_urls, new_url) # Scraping urls from file
 
     content = scraping.PDFscraping("PDF resources", scraping.webScraping(urls)) # Scraping the content of relevant files
@@ -49,6 +54,12 @@ if __name__=="__main__":
     cleaned_content = []
     for text in content:
         cleaned_content.append(PreProcessing.PreProcessing(text, n))
+
+    IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\DataCollection\corpus.csv"
+    pd.DataFrame(cleaned_content).to_csv(IndexedPath)
+
+# Size of corpus without removing stopwords, 1,1M
+# Size of corpus after removing stopwords, 900k
 
 
 
