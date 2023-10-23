@@ -50,12 +50,22 @@ def PreProcess(text):
     text = text.lower() # Lowercase all the characters from the string
     text = text.strip() # Remove the leading and trailing whitespaces
     text = re.compile('<.*?>').sub('', text)
-    text = re.compile('[%s]' % re.escape(string.punctuation)).sub(' ', text) # Removing Punctuation
-    text = re.sub(r'\[[0-9]*\]', ' ', text)
-    text = re.sub(r'[^\w\s]', '', str(text)) # Remove non alphanumeric characters
-    text = re.sub(r'\d', '', text) # Removing digits
-    text = re.sub(r"\b[a-zA-Z]\b", "", text) # Removing single characters
+    #text = re.compile('[%s]' % re.escape(string.punctuation)).sub(' ', text) # Removing Punctuation
+    #text = re.sub(r'\[[0-9]*\]', ' ', text)
+    #text = re.sub(r'\d', '', text) # Removing digits
+    #text = re.sub(r"\b[a-zA-Z]\b", "", text) # Removing single characters
+    #text = re.sub(r'[^\w\s]', '', str(text)) # Remove non alphanumeric characters
     text = re.sub(r'\s+', ' ', str(text).strip()) # Replacing "double, triple, etc" whitespaces by one
+
+    text = text.encode('ascii', 'ignore').decode()  # remove unicode characters
+    text = re.sub(r'https*\S+', ' ', text) # remove links
+    text = re.sub(r'http*\S+', ' ', text)
+    # cleaning up text
+    text = re.sub(r'\'\w+', '', text) 
+    text = re.sub(r'\w*\d+\w*', '', text)
+    text = re.sub(r'\s{2,}', ' ', text)
+    text = re.sub(r'\s[^\w\s]\s', '', text)
+
     return text #Output - Same string after all the transformations
 
 def StopWord(string): 
@@ -113,4 +123,4 @@ def PreProcessing(text, n):
     print(n)
     print("length of the text is : ")
     print(len(FirstClean(text)))
-    return Lemmatizer(StopWord(PreProcess(ReplaceContractions(FirstClean(text)))))
+    return PreProcess(ReplaceContractions(FirstClean(text)))
