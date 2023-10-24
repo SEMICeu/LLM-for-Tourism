@@ -62,7 +62,7 @@ def PreProcess(text):
     text = re.sub(r'http*\S+', ' ', text)
     # cleaning up text
     text = re.sub(r'\'\w+', '', text) 
-    text = re.sub(r'\w*\d+\w*', '', text)
+    #text = re.sub(r'\w*\d+\w*', '', text)
     text = re.sub(r'\s{2,}', ' ', text)
     text = re.sub(r'\s[^\w\s]\s', '', text)
 
