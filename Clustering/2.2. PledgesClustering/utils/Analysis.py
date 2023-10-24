@@ -15,6 +15,8 @@ from sklearn.ensemble import RandomForestClassifier # For building RandomForest 
 from sklearn.metrics import accuracy_score # For evaluating performance of predictions
 from sklearn.model_selection import train_test_split # For creating train-test split
 
+from nltk.corpus import stopwords
+
 """ WordClouds analysis """
 
 # Generating wordclouds for each of the clusters based on the tf-idf "frequencies"
@@ -55,7 +57,7 @@ def wordcloudTfIdf(data, cluster):
     data = data.T.mean(axis = 1)
 
     print("Cluster" + str(cluster))
-    cloud=WordCloud(colormap="ocean",width=600,height=400, background_color="white", max_words=20).generate_from_frequencies(data) # Setting color for the map, background + defining dimensions
+    cloud=WordCloud(colormap="ocean",width=600,height=400, background_color="white", max_words=20, stopwords=stopwords.words('english')).generate_from_frequencies(data) # Setting color for the map, background + defining dimensions
     fig=plt.figure(figsize=(13,18)) # Size of the figure
     plt.axis("off") # Removing the axis
     plt.imshow(cloud,interpolation='bilinear')

@@ -13,6 +13,7 @@ from sklearn.metrics import accuracy_score # For evaluating performance of predi
 from sklearn.model_selection import train_test_split # For creating train-test split
 
 from utils.Analysis import tfIdf, wordcloudTfIdf, plotCluster, binaryClass, DiscriWordsRF
+from utils.Preprocessing import PreProcessing
 
 """ Loading the Clustering results """
 
@@ -23,6 +24,8 @@ ResultsPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFil
 ResultsDf = pd.read_excel(ResultsPath)  
 
 print(ResultsDf.head()) # Controlling the data loaded
+
+ResultsDf["PreProcessedText"] = ResultsDf["PreProcessedText"].apply(lambda x: PreProcessing(x, n=0))
 
 """ WordClouds analysis """
 
