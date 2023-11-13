@@ -100,7 +100,7 @@ def pledgeEmbedding(documents, tokenizer, model):
                 document_embedding = torch.mean(torch.cat(tuple(sentEmbedding)).view(len(sentEmbedding),768), dim = 0)
 
         else:              
-                document_embedding = DocEmbedding(tokenized_text)
+                document_embedding = DocEmbedding(tokenized_text, tokenizer, model)
 
         pledgeEmbedding.append(document_embedding.tolist())
 

@@ -166,9 +166,9 @@ def tSNEPlot(x, topic, title):
     ax.scatter(x["Y1"], x["Y2"], c="#d04a02", marker= "v") # Setting data to plot, color, and markers type
     ax.set_title("2D t-SNE plot of " + str(title) + str(topic[0]), **hfont) # Defining a title and its format
     ax.set_ylabel("Y2", **csfont) # Defining y-label
-    ax.set_ylim(-35,35) # Standardizing the scale of y axis
+    ax.set_ylim(-50,50) # Standardizing the scale of y axis
     ax.set_xlabel("Y1", **csfont) # Idem for x axis
-    ax.set_xlim(-35,35)
+    ax.set_xlim(-50,50)
 
     ax.set_facecolor((218 / 255, 222 / 255, 224 / 256)) # Formatting the background's color
     plt.grid(which='major', color='w', linestyle='-') # Adding a grid to the background
