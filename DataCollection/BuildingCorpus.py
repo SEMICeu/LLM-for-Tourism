@@ -49,7 +49,10 @@ if __name__=="__main__":
     urls = scraping.addingURLs(scraping.scrapingURLs(file), bad_urls, new_url) # Scraping urls from file
 
     content = scraping.PDFscraping("PDF resources", scraping.webScraping(urls)) # Scraping the content of relevant files
-    
+
+    IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\DataCollection\scraping.csv"
+    pd.DataFrame(content).to_csv(IndexedPath)
+
     n = 0
     cleaned_content = []
     for text in content:
