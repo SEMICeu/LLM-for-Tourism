@@ -7,7 +7,7 @@ import pandas as pd
 
 ########################################################### Variables ###############################################################################################################################################################################################################################
 
-bad_urls = ["https://circulareconomy.europa.eu/platform/","https://europa.eu/youreurope/business/finance-funding/getting-funding/access-finance/", 
+BadUrls = ["https://circulareconomy.europa.eu/platform/","https://europa.eu/youreurope/business/finance-funding/getting-funding/access-finance/", 
             "https://ec.europa.eu/regional_policy/en/newsroom/coronavirus-response/react-eu", "https://ec.europa.eu/environment/europeangreencapital/index_en.htm", 
             "https://app.euplf.eu/#/","https://ec.europa.eu/eurostat/web/products-datasets/-/tour_occ_arnat", "https://ec.europa.eu/eurostat/web/products-datasets/-/tour_occ_arnraw", 
             "https://transport.ec.europa.eu/transport-themes/clean-transport-urban-transport/sumi_en", "https://ec.europa.eu/eurostat/databrowser/bookmark/bc5378b9-b6cb-468a-a4ac-055bb4d6f014?lang=en", 
@@ -18,7 +18,7 @@ bad_urls = ["https://circulareconomy.europa.eu/platform/","https://europa.eu/you
             "https://ec.europa.eu/info/research-and-innovation/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe/missions-horizon-europe/climate-neutral-and-smart-cities_en", 
             "https://europa.eu/eurobarometer/surveys/detail/2283", "http://europa.eu.int/citizensrights/signpost/about/index_en.htm#note1#note1"]
 
-new_url = ["https://single-market-economy.ec.europa.eu/sectors/tourism/eu-funding-and-businesses/business-portal/internationalisation-tourism-businesses/marketing-your-tourism-company-internationally_en",
+NewUrls = ["https://single-market-economy.ec.europa.eu/sectors/tourism/eu-funding-and-businesses/business-portal/internationalisation-tourism-businesses/marketing-your-tourism-company-internationally_en",
             "https://single-market-economy.ec.europa.eu/sectors/tourism/eu-funding-and-businesses/business-portal/internationalisation-tourism-businesses/transnational-business-cooperation_en", "https://single-market-economy.ec.europa.eu/sectors/tourism/eu-funding-and-businesses/business-portal/internationalisation-tourism-businesses/international-market-selection_en",
             "https://single-market-economy.ec.europa.eu/sectors/tourism/eu-funding-and-businesses/business-portal/getting-know-potential-clients/traditional-european-markets_en", "https://single-market-economy.ec.europa.eu/sectors/tourism/eu-funding-and-businesses/business-portal/getting-know-potential-clients/usa-main-traditional-international-market_en",
             "https://single-market-economy.ec.europa.eu/sectors/tourism/eu-funding-and-businesses/business-portal/getting-know-potential-clients/emerging-markets_en", "https://single-market-economy.ec.europa.eu/sectors/tourism/eu-funding-and-businesses/business-portal/running-your-business/hosting-20-events_en",
@@ -46,20 +46,22 @@ if __name__=="__main__":
 
     DirPpath = Path(os.path.abspath('')).parent
     file = str(DirPpath) + "\LLM-for-Tourism\DataCollection\TransitionPathwayForTourism.pdf" # defining the file from which urls need to be scraped
-    urls = scraping.addingURLs(scraping.scrapingURLs(file), bad_urls, new_url) # Scraping urls from file
+    urls = scraping.addingURLs(scraping.scrapingURLs(file), BadUrls, NewUrls) # Scraping urls from file
 
     content = scraping.PDFscraping("PDF resources", scraping.webScraping(urls)) # Scraping the content of relevant files
 
     IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\DataCollection\scraping.csv"
     pd.DataFrame(content).to_csv(IndexedPath)
 
+# For improving the quality of the training set, an intermediate step of manual cleaning was performed on scraping.csv before feeding it into PreProcessing( )
+
     n = 0
-    cleaned_content = []
+    CleanedContent = []
     for text in content:
-        cleaned_content.append(PreProcessing.PreProcessing(text, n))
+        CleanedContent.append(PreProcessing.PreProcessing(text, n))
 
     IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\DataCollection\corpus.csv"
-    pd.DataFrame(cleaned_content).to_csv(IndexedPath)
+    pd.DataFrame(CleanedContent).to_csv(IndexedPath)
 
 # Size of corpus without removing stopwords, 1,1M
 # Size of corpus after removing stopwords, 900k
