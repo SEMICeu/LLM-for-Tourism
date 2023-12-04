@@ -45,12 +45,12 @@ NewUrls = ["https://single-market-economy.ec.europa.eu/sectors/tourism/eu-fundin
 if __name__=="__main__":
 
     DirPpath = Path(os.path.abspath('')).parent
-    file = str(DirPpath) + "\LLM-for-Tourism\DataCollection\TransitionPathwayForTourism.pdf" # defining the file from which urls need to be scraped
+    file = str(DirPpath) + "\LLM-for-Tourism\DataCollection\Files\TransitionPathwayForTourism.pdf" # defining the file from which urls need to be scraped
     urls = scraping.addingURLs(scraping.scrapingURLs(file), BadUrls, NewUrls) # Scraping urls from file
 
     content = scraping.PDFscraping("PDF resources", scraping.webScraping(urls)) # Scraping the content of relevant files
 
-    IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\DataCollection\scraping.csv"
+    IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\DataCollection\Files\scraping.csv"
     pd.DataFrame(content).to_csv(IndexedPath)
 
 # For improving the quality of the training set, an intermediate step of manual cleaning was performed on scraping.csv before feeding it into PreProcessing( )
@@ -60,7 +60,7 @@ if __name__=="__main__":
     for text in content:
         CleanedContent.append(PreProcessing.PreProcessing(text, n))
 
-    IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\DataCollection\corpus.csv"
+    IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\DataCollection\Files\corpus.csv"
     pd.DataFrame(CleanedContent).to_csv(IndexedPath)
 
 # Size of corpus without removing stopwords, 1,1M
