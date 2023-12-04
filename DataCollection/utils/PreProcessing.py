@@ -45,30 +45,34 @@ def PreProcess(text):
     :return: Preprocessed string
     """
 
-    text = re.sub(r'https*\S+', ' ', text) # remove links
-    text = re.sub(r'http*\S+', ' ', text)
+    # Dealing with errors created by the scraping    
+    text = re.sub(r'\s-([a-zA-Z0-9])', r'-\1', text)  # Correcting "low -carbon" in "low-carbon"      
+    text = re.sub(r'\sth\s', " th", text) # Correcting "th is" by "this"
+    text = re.sub(r'\sTh\s', " Th", text) # Correcting "Th is" by "This"
+    text = re.sub(r'\spro\s', " pro", text) # Correcting "pro duction" by "production"
+    text = re.sub(r'\scon\s', " con", text) # Correcting "con duct" by "conduct"
+    text = re.sub(r'\sCon\s', " Con", text) # Correcting "Con duct" by "Conduct"
+    text = re.sub(r'\ssu\s', " su", text) # ...
+    text = re.sub(r'\sst\s', " st", text)
+    text = re.sub(r'\sSt\s', " St", text)
+    text = re.sub(r'\sAc\s', " Ac", text)
+    text = re.sub(r'\sac\s', " ac", text)
+    text = re.sub(r'\sex\s', " ex", text)
+    text = re.sub(r'\sres\s', " res", text)
+
+    # General cleaning functions
     text = text.lower() # Lowercase all the characters from the string
-    text = text.strip() # Remove the leading and trailing whitespaces
-    text = re.compile('<.*?>').sub(' ', text)
-    # #text = re.compile('[%s]' % re.escape(string.punctuation)).sub(' ', text) # Removing Punctuation
-    # #text = re.sub(r'\[[0-9]*\]', ' ', text)
-    # #text = re.sub(r'\d', '', text) # Removing digits
-    # #text = re.sub(r"\b[a-zA-Z]\b", "", text) # Removing single characters
-    # #text = re.sub(r'[^\w\s]', '', str(text)) # Remove non alphanumeric characters
+    text = re.sub(r'\n', ' ', text) # remove tabulation
+    text = re.compile('<.*?>').sub(' ', text) # Remove links
 
     text = text.encode('ascii', 'ignore').decode()  # remove unicode characters
-    # # cleaning up text
-    #text = re.sub(r'\'\w+', ' ', text)
-    text = re.sub(r'\s{2,}', ' ', text)
+    text = re.sub(r'https*\S+', ' ', text) # remove https links
+    text = re.sub(r'http*\S+', ' ', text) # remove http links
     text = re.sub(r'\s[^\w\s]\s', ' ', text)
-    text = re.sub(r'\[\d+\]', ' ', text)
-    text = re.sub(r'\(\d+\)', ' ', text)
-    text = re.sub(r'\w+\d+\w+', ' ', text)
-    text = text.strip()
-    text = contractions.fix(text)
-    text = re.compile(r'\s\.+').sub(' ', text)
-    text = re.sub(r'\s+', ' ', str(text).strip()) # Replacing "double, triple, etc" whitespaces by one
-    text = text.strip() # Remove the leading and trailing whitespaces
+    
+    text = contractions.fix(text) # Manages contractions
+    text = text.strip() # Remove trailing and leading whitespaces
+    text = re.sub(r'\s{2,}', ' ', text) # Remove double and triple whitespaces
 
     return text #Output - Same string after all the transformations
 
