@@ -13,7 +13,8 @@ from utils.Visuals import Tsne, ClusterPlot, tSNEPlot
 # Load the Indexed data
 DirPpath = Path(os.path.abspath('')).parent # Fetching the current directory path
 
-IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV1.csv"
+#IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV1.csv"
+IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV3.csv"
 IndexedData = pd.read_csv(IndexedPath, index_col=0)  
 
 # Load the Topic column from the preprocessed data

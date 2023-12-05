@@ -9,7 +9,7 @@ import nltk #  For nlp processing
 from sklearn.feature_extraction.text import TfidfVectorizer # For obtaining Tf-Idf tokenization
 
 from utils.DocumentEmbedding import pledgeEmbedding
-from transformers import BertTokenizer, BertModel
+from transformers import BertTokenizer, BertModel, AutoModel, AutoTokenizer, BertTokenizerFast, BertConfig
 
 """ Loading the pre-processed data """
 
@@ -72,5 +72,47 @@ IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFile
 DocIndexV1.to_csv(IndexedPath)
 
 
+""" LLM model """
+
+tokenizer = AutoTokenizer.from_pretrained("veroman/TourBERT",do_lowercase=True, truncation=True, padding="max_length",model_max_length=128)
+
+# Load pre-trained model (weights)
+model = AutoModel.from_pretrained("veroman/TourBERT",
+                                  output_hidden_states = True, # Whether the model returns all hidden-states.
+                                  )
+
+
+""" Indexing Pledges with Mean Embedding """
+
+# converting text to numerical data using LLM model
+vectorsLLM = pledgeEmbedding(documents, tokenizer, model)
+
+DocIndexV1 = pd.DataFrame(vectorsLLM)# Outputting the indexed pledges file
+
+IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV2.csv"
+DocIndexV1.to_csv(IndexedPath)
+
+
+""" LLM model """
+
+tokenizer = BertTokenizerFast.from_pretrained('c:\\Users\\ecaudron001\\Documents\\GitHub\\LLM-for-Tourism\\Clustering\\2.1. WordEmbedding\\model\\', config=BertConfig())
+tokenizer.model_max_length = 512
+tokenizer.init_kwargs['model_max_length'] = 512
+
+# Load pre-trained model (weights)
+model = AutoModel.from_pretrained(f'model/',
+                                   output_hidden_states = True, # Whether the model returns all hidden-states.
+                                   )
+
+
+""" Indexing Pledges with Mean Embedding """
+
+# converting text to numerical data using LLM model
+vectorsLLM = pledgeEmbedding(documents, tokenizer, model)
+
+DocIndexV1 = pd.DataFrame(vectorsLLM)# Outputting the indexed pledges file
+
+IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV3.csv"
+DocIndexV1.to_csv(IndexedPath)
 
 
