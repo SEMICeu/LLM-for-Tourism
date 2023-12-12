@@ -6,9 +6,15 @@ from transformers import BertTokenizer, BertModel # For LLM models and tokenizer
 import nltk
 
 
-def DocEmbedding(tokenized_text, tokenizer, model):
-    
-    padded_tokens = tokenized_text + ['[PAD]' for _ in range(512-len(tokenized_text))]
+def DocEmbedding(tokenized_text, tokenizer, model, Bert=True):
+    print(Bert)
+    if Bert == True:
+           pad = '[PAD]'
+    else:
+           pad = '<pad>'
+
+
+    padded_tokens = tokenized_text + [pad for _ in range(512-len(tokenized_text))]
 
     # Map the token strings to their vocabulary indeces.
     indexed_tokens = tokenizer.convert_tokens_to_ids(padded_tokens)
@@ -18,14 +24,13 @@ def DocEmbedding(tokenized_text, tokenizer, model):
             print('{:<12} {:>6,}'.format(tup[0], tup[1]))
 
     #Attention mask
-    attn_mask = [ 1 if token != '[PAD]' else 0 for token in padded_tokens  ]
-    
+    attn_mask = [ 1 if token != pad else 0 for token in padded_tokens  ]
+    print(len(attn_mask))
+
     # Mark each of the tokens as belonging to sentence "1".
-    segments_ids = [1] * len(attn_mask)
+    segments_ids = [0] * len(attn_mask)
     print (segments_ids)
 
-    
-    
     # Convert inputs to PyTorch tensors
     tokens_tensor = torch.tensor([indexed_tokens])
     segments_tensors = torch.tensor([segments_ids])
@@ -57,15 +62,25 @@ def DocEmbedding(tokenized_text, tokenizer, model):
     return document_embedding
 
 
-def pledgeEmbedding(documents, tokenizer, model):
+def pledgeEmbedding(documents, tokenizer, model, Bert=True):
     
     pledgeEmbedding = []
 
     for doc in documents:
         text = doc
 
-            # Add the special tokens.
-        marked_text = "[CLS] " + text + " [SEP]"
+        if Bert==True: 
+              cls = "[CLS] "
+              sep = " [SEP]"
+              bert = True
+
+        else: 
+              cls = "<s> "
+              sep = " </s>"
+              bert = False
+        
+        # Add the special tokens.
+        marked_text = cls + text + sep
         
         # Split the sentence into tokens.
         tokenized_text = tokenizer.tokenize(marked_text)
@@ -82,7 +97,7 @@ def pledgeEmbedding(documents, tokenizer, model):
 
                 for sent in sentences: 
                         
-                        marked_text = "[CLS] " + text1 + sent + " [SEP]"
+                        marked_text = cls + text1 + sent + sep
         
                         # Split the sentence into tokens.
                         tokenized_text = tokenizer.tokenize(marked_text)
@@ -90,17 +105,17 @@ def pledgeEmbedding(documents, tokenizer, model):
                         if len(tokenized_text) < 512:
                                 text1 = text1 + sent
                         else:
-                                marked_text = "[CLS] " + text1 + " [SEP]"       
+                                marked_text = cls + text1 + sep       
                                 # Split the sentence into tokens.
                                 tokenized_text = tokenizer.tokenize(marked_text)
-                                sentEmbedding.append(DocEmbedding(tokenized_text, tokenizer, model))                  
+                                sentEmbedding.append(DocEmbedding(tokenized_text, tokenizer, model, Bert=bert))                  
                                 
                                 text1 = ""
                 
                 document_embedding = torch.mean(torch.cat(tuple(sentEmbedding)).view(len(sentEmbedding),768), dim = 0)
 
         else:              
-                document_embedding = DocEmbedding(tokenized_text, tokenizer, model)
+                document_embedding = DocEmbedding(tokenized_text, tokenizer, model, Bert = bert)
 
         pledgeEmbedding.append(document_embedding.tolist())
 

@@ -13,10 +13,11 @@ from utils.Visuals import Tsne, ClusterPlot, tSNEPlot
 # Load the Indexed data
 DirPpath = Path(os.path.abspath('')).parent # Fetching the current directory path
 
-IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV1.csv"
+#IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV1.csv"
 #IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV2.csv"
 #IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV3.csv"
 #IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV4.csv"
+IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV5.csv"
 IndexedData = pd.read_csv(IndexedPath, index_col=0)  
 
 # Load the Topic column from the preprocessed data
@@ -78,10 +79,11 @@ for topic in ResultsDf["Topics"]:
 ResultsDf["Area"] = areaList
 
 # Exporting to excel
-ResultsDf.to_excel(str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\Clusters.xlsx")
+#ResultsDf.to_excel(str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\Clusters.xlsx")
 #ResultsDf.to_excel(str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\Clusters2.xlsx")
 #ResultsDf.to_excel(str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\Clusters3.xlsx")
 #ResultsDf.to_excel(str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\Clusters4.xlsx")
+ResultsDf.to_excel(str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\Clusters5.xlsx")
 
 
 

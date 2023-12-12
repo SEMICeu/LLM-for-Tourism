@@ -17,10 +17,11 @@ from utils.Visuals import GraphAnalysis
 
 # Load the Indexed data
 DirPpath = Path(os.path.abspath('')).parent # Fetching the current directory path - Specific for ipynb file - For .py: Path(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/"))
-IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV1.csv"
+#IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV1.csv"
 #IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV2.csv"
 #IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV3.csv"  
 #IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV4.csv"  
+IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV5.csv" 
 
 
 print("The current location of IndexedDataV1.csv is: ", IndexedPath)

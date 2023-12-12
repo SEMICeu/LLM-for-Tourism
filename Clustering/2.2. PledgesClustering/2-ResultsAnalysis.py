@@ -20,7 +20,7 @@ from utils.Preprocessing import PreProcessing
 # Load the Indexed data
 DirPpath = Path(os.path.abspath('')).parent # Fetching the current directory path
 
-ResultsPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\Clusters.xlsx"
+ResultsPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\Clusters5.xlsx"
 ResultsDf = pd.read_excel(ResultsPath)  
 
 print(ResultsDf.head()) # Controlling the data loaded
