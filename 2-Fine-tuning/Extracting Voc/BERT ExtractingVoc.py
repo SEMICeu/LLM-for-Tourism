@@ -34,17 +34,12 @@ with open(file, 'w', encoding='utf-8') as f:
 
 """ Define global variables """
 
-# LOCAL_INPUT_PATH is the location of corpus.txt 
-LOCAL_INPUT_PATH = file 
-# LOCAL_OUTPUT_PATH is the location where the tokenizer will save the new vocabulary
-LOCAL_OUTPUT_PATH =  str(DirPpath) + "vocab"
-VOCAB_SIZE = 30522
-
+VocabSize = 30522
 
 """ Extracting  and exporting the voacbulary """
 
 tokenizer = BertWordPieceTokenizer()
-tokenizer.train(files=file, vocab_size=VOCAB_SIZE)
+tokenizer.train(files=file, vocab_size=VocabSize)
 
 DirPpath = Path(os.path.abspath('')).parent
 OutputPath = str(DirPpath) + "\\2-Fine-tuning\Extracting Voc\Files\BERT"

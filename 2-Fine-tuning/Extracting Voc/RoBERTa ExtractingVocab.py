@@ -34,15 +34,6 @@ with open(file, 'w', encoding='utf-8') as f:
     for ID, content in zip(CorpusDF['Unnamed: 0'].values, CorpusDF['0'].values):
         f.write('\n'.join([str(ID), content]))
 
-""" Define global variables """
-
-# LOCAL_INPUT_PATH is the location of corpus.txt 
-LOCAL_INPUT_PATH = file 
-# LOCAL_OUTPUT_PATH is the location where the tokenizer will save the new vocabulary
-LOCAL_OUTPUT_PATH =  str(DirPpath) + "vocab"
-VOCAB_SIZE = 30522
-
-
 """ Extracting  and exporting the voacbulary """
 # Initialize a tokenizer
 tokenizer = ByteLevelBPETokenizer(lowercase=True)
