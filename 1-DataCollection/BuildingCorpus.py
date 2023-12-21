@@ -1,12 +1,12 @@
-
-from utils import scraping, PreProcessing
+import os # For finding the location of Cleaned Data file
 from pathlib import Path
-import os
 
-import pandas as pd
+import pandas as pd # for data handling
+from utils import scraping, PreProcessing # custom functions for 1°scraping data from PDFs and URLs and 2°Preprocessing the scraped data
 
 ########################################################### Variables ###############################################################################################################################################################################################################################
 
+# After a manual analysis of the urls, a list of problematic websites was created, and additional resources were identified as replacement
 BadUrls = ["https://circulareconomy.europa.eu/platform/","https://europa.eu/youreurope/business/finance-funding/getting-funding/access-finance/", 
             "https://ec.europa.eu/regional_policy/en/newsroom/coronavirus-response/react-eu", "https://ec.europa.eu/environment/europeangreencapital/index_en.htm", 
             "https://app.euplf.eu/#/","https://ec.europa.eu/eurostat/web/products-datasets/-/tour_occ_arnat", "https://ec.europa.eu/eurostat/web/products-datasets/-/tour_occ_arnraw", 
@@ -44,16 +44,19 @@ NewUrls = ["https://single-market-economy.ec.europa.eu/sectors/tourism/eu-fundin
 
 if __name__=="__main__":
 
-    DirPpath = Path(os.path.abspath('')).parent
-    file = str(DirPpath) + "\LLM-for-Tourism\DataCollection\Files\TransitionPathwayForTourism.pdf" # defining the file from which urls need to be scraped
-    urls = scraping.addingURLs(scraping.scrapingURLs(file), BadUrls, NewUrls) # Scraping urls from file
+    """ Scraping """
 
-    content = scraping.PDFscraping("PDF resources", scraping.webScraping(urls)) # Scraping the content of relevant files
+    DirPpath = Path(os.path.abspath('')).parent
+    file = str(DirPpath) + "\LLM-for-Tourism\DataCollection\Files\TransitionPathwayForTourism.pdf" # defining the file from which urls need to be scraped: Transition Pathway for Tourism PDF
+    urls = scraping.addingURLs(scraping.scrapingURLs(file), BadUrls, NewUrls) # Scraping urls from the PDF file
+
+    content = scraping.PDFscraping("PDF resources", scraping.webScraping(urls)) # Scraping the content of the urls from the PDF
 
     IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\DataCollection\Files\scraping.csv"
-    pd.DataFrame(content).to_csv(IndexedPath)
+    pd.DataFrame(content).to_csv(IndexedPath) # For improving the quality of the training set, an intermediate step of manual cleaning can be performed on scraping.csv before feeding it into PreProcessing( )
 
-# For improving the quality of the training set, an intermediate step of manual cleaning was performed on scraping.csv before feeding it into PreProcessing( )
+    
+    """ Preprocessing """
 
     n = 0
     CleanedContent = []
@@ -62,9 +65,6 @@ if __name__=="__main__":
 
     IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\DataCollection\Files\corpus.csv"
     pd.DataFrame(CleanedContent).to_csv(IndexedPath)
-
-# Size of corpus without removing stopwords, 1,1M
-# Size of corpus after removing stopwords, 900k
 
 
 

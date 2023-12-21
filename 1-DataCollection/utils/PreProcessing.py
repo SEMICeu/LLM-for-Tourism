@@ -9,11 +9,6 @@ from nltk.corpus import stopwords
 from nltk.corpus import wordnet
 import contractions # For dealing with contractions, e.g., I'm --> I am
 
-# To use only once to download all the libraries from nltk
-# nltk.download('stopwords')
-# nltk.download('wordnet')
-# nltk.download('punkt')
-# nltk.download('averaged_perceptron_tagger')
 
 """ Defining common pre-processing functions """
 
@@ -60,34 +55,20 @@ def PreProcess(text):
     text = re.sub(r'\sex\s', " ex", text)
     text = re.sub(r'\sres\s', " res", text)
 
+
     # General cleaning functions
     text = text.lower() # Lowercase all the characters from the string
     text = re.sub(r'\n', ' ', text) # remove tabulation
     text = re.compile('<.*?>').sub(' ', text) # Remove links
-
     text = text.encode('ascii', 'ignore').decode()  # remove unicode characters
     text = re.sub(r'https*\S+', ' ', text) # remove https links
     text = re.sub(r'http*\S+', ' ', text) # remove http links
-    text = re.sub(r'\s[^\w\s]\s', ' ', text)
-    
+    text = re.sub(r'\s[^\w\s]\s', ' ', text)    
     text = contractions.fix(text) # Manages contractions
     text = text.strip() # Remove trailing and leading whitespaces
     text = re.sub(r'\s{2,}', ' ', text) # Remove double and triple whitespaces
 
     return text #Output - Same string after all the transformations
-
-nltk.download('stopwords')
-
-def StopWord(string): 
-    """
-    StopWord removes stopwords from a string using NLTK stopwords corpus
-
-    :param string: A string
-    :return: Original string without stopwords
-    """
-
-    a = [i for i in string.split() if i not in stopwords.words('english')] # Removing usual english stopwords from the string
-    return ' '.join(a) #Output - Same string after all the transformations
 
 def PreProcessing(text, n):
     """

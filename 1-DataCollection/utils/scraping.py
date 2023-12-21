@@ -16,6 +16,7 @@ from selenium.webdriver.common.by import By # web scraping libraries
 
 file = "TransitionPathwayForTourism.pdf"
 
+
 def scrapingURLs(file):
     """
     scrapingURLs takes a pdf file as input and extract all the references to urls from it
@@ -133,8 +134,6 @@ def webScraping(urls):
                 except:
                     issue.append(url)
                     count += 1
-        # text = clean(text)
-        # Should split the page into sub paragraphs, remove the cookies mentions, remove paragraphs with less than 3 words
 
         content.append(text) # Add the scraped text to the list of content
 
