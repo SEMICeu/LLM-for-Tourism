@@ -47,12 +47,12 @@ if __name__=="__main__":
     """ Scraping """
 
     DirPpath = Path(os.path.abspath('')).parent
-    file = str(DirPpath) + "\LLM-for-Tourism\DataCollection\Files\TransitionPathwayForTourism.pdf" # defining the file from which urls need to be scraped: Transition Pathway for Tourism PDF
+    file = str(DirPpath) + "\LLM-for-Tourism\\1-DataCollection\Files\TransitionPathwayForTourism.pdf" # defining the file from which urls need to be scraped: Transition Pathway for Tourism PDF
     urls = scraping.addingURLs(scraping.scrapingURLs(file), BadUrls, NewUrls) # Scraping urls from the PDF file
 
-    content = scraping.PDFscraping("PDF resources", scraping.webScraping(urls)) # Scraping the content of the urls from the PDF
+    content = scraping.PDFscraping("Files\PDF resources", scraping.webScraping(urls)) # Scraping the content of the urls from the PDF
 
-    IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\DataCollection\Files\scraping.csv"
+    IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\\1-DataCollection\Files\scraping.csv"
     pd.DataFrame(content).to_csv(IndexedPath) # For improving the quality of the training set, an intermediate step of manual cleaning can be performed on scraping.csv before feeding it into PreProcessing( )
 
     
@@ -63,7 +63,7 @@ if __name__=="__main__":
     for text in content:
         CleanedContent.append(PreProcessing.PreProcessing(text, n))
 
-    IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\DataCollection\Files\corpus.csv"
+    IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\\1-DataCollection\Files\corpus.csv"
     pd.DataFrame(CleanedContent).to_csv(IndexedPath)
 
 

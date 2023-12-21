@@ -83,7 +83,7 @@ def extractPDF(url, types):
                     return ' '.join([pdf.pages[i].extract_text() for i in range(number_of_pages)])
     
     else: 
-        pdf = PdfReader(open(str(DirPpath) + "\LLM-for-Tourism\DataCollection\PDF resources\\" + url, 'rb'))
+        pdf = PdfReader(open(str(DirPpath) + "\LLM-for-Tourism\\1-DataCollection\Files\PDF resources\\" + url, 'rb'))
         number_of_pages = len(pdf.pages)
 
         return ' '.join([pdf.pages[i].extract_text() for i in range(number_of_pages)])
@@ -150,7 +150,7 @@ def PDFscraping(folder, content):
     :return: List of the content scraped from the urls
     """   
     DirPpath = Path(os.path.abspath('')).parent
-    pdfs = os.listdir(str(DirPpath) + "\LLM-for-Tourism\DataCollection\\" + folder)
+    pdfs = os.listdir(str(DirPpath) + "\LLM-for-Tourism\\1-DataCollection\\" + folder)
     
     for pdf in pdfs:
 
