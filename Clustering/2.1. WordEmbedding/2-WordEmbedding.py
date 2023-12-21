@@ -51,99 +51,99 @@ print(len(WordFreq))
 sorted(WordFreq, key=WordFreq.get, reverse=True)[:10]
 
 
-# """ LLM model """
+""" LLM model """
 
-# tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
-# # Load pre-trained model (weights)
-# model = BertModel.from_pretrained('bert-base-uncased',
-#                                   output_hidden_states = True, # Whether the model returns all hidden-states.
-#                                   )
-
-
-# """ Indexing Pledges with Mean Embedding """
-
-# # converting text to numerical data using LLM model
-# vectorsLLM = pledgeEmbedding(documents, tokenizer, model)
-
-# DocIndexV1 = pd.DataFrame(vectorsLLM)# Outputting the indexed pledges file
-
-# IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV1.csv"
-# DocIndexV1.to_csv(IndexedPath)
+# Load pre-trained model (weights)
+model = BertModel.from_pretrained('bert-base-uncased',
+                                  output_hidden_states = True, # Whether the model returns all hidden-states.
+                                  )
 
 
-# """ LLM model """
+""" Indexing Pledges with Mean Embedding """
 
-# tokenizer = AutoTokenizer.from_pretrained("veroman/TourBERT",do_lowercase=True, truncation=True, padding="max_length",model_max_length=128)
+# converting text to numerical data using LLM model
+vectorsLLM = pledgeEmbedding(documents, tokenizer, model)
 
-# # Load pre-trained model (weights)
-# model = AutoModel.from_pretrained("veroman/TourBERT",
-#                                   output_hidden_states = True, # Whether the model returns all hidden-states.
-#                                   )
+DocIndexV1 = pd.DataFrame(vectorsLLM)# Outputting the indexed pledges file
 
-
-# """ Indexing Pledges with Mean Embedding """
-
-# # converting text to numerical data using LLM model
-# vectorsLLM = pledgeEmbedding(documents, tokenizer, model)
-
-# DocIndexV1 = pd.DataFrame(vectorsLLM)# Outputting the indexed pledges file
-
-# IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV2.csv"
-# DocIndexV1.to_csv(IndexedPath)
-
-
-# """ LLM model """
-
-# tokenizer = BertTokenizerFast.from_pretrained('c:\\Users\\ecaudron001\\Documents\\GitHub\\LLM-for-Tourism\\Clustering\\2.1. WordEmbedding\\model\\', config=BertConfig())
-# tokenizer.model_max_length = 512
-# tokenizer.init_kwargs['model_max_length'] = 512
-
-# # Load pre-trained model (weights)
-# model = AutoModel.from_pretrained(f'model/',
-#                                    output_hidden_states = True, # Whether the model returns all hidden-states.
-#                                    )
-
-
-# """ Indexing Pledges with Mean Embedding """
-
-# # converting text to numerical data using LLM model
-# vectorsLLM = pledgeEmbedding(documents, tokenizer, model)
-
-# DocIndexV1 = pd.DataFrame(vectorsLLM)# Outputting the indexed pledges file
-
-# IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV3.csv"
-# DocIndexV1.to_csv(IndexedPath)
-
-
-# """ ROBERTA model """
-
-# tokenizer = RobertaTokenizer.from_pretrained('roberta-base')
-
-
-# # Load pre-trained model (weights)
-# model = RobertaModel.from_pretrained('roberta-base', output_hidden_states = True) # Whether the model returns all hidden-states.
-
-
-# """ Indexing Pledges with Mean Embedding """
-
-# # converting text to numerical data using LLM model
-# vectorsLLM = pledgeEmbedding(documents, tokenizer, model, Bert=False)
-
-# DocIndexV1 = pd.DataFrame(vectorsLLM)# Outputting the indexed pledges file
-
-# IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV4.csv"
-# DocIndexV1.to_csv(IndexedPath)
+IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV1.csv"
+DocIndexV1.to_csv(IndexedPath)
 
 
 """ LLM model """
 
-tokenizer = RobertaTokenizerFast.from_pretrained('c:\\Users\\ecaudron001\\Documents\\GitHub\\LLM-for-Tourism\\Clustering\\2.1. WordEmbedding\\Roberta\\', config=RobertaConfig())
+tokenizer = AutoTokenizer.from_pretrained("veroman/TourBERT",do_lowercase=True, truncation=True, padding="max_length",model_max_length=128)
+
+# Load pre-trained model (weights)
+model = AutoModel.from_pretrained("veroman/TourBERT",
+                                  output_hidden_states = True, # Whether the model returns all hidden-states.
+                                  )
+
+
+""" Indexing Pledges with Mean Embedding """
+
+# converting text to numerical data using LLM model
+vectorsLLM = pledgeEmbedding(documents, tokenizer, model)
+
+DocIndexV1 = pd.DataFrame(vectorsLLM)# Outputting the indexed pledges file
+
+IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV2.csv"
+DocIndexV1.to_csv(IndexedPath)
+
+
+""" LLM model """
+
+tokenizer = BertTokenizerFast.from_pretrained(str(DirPpath.absolute()) + '\\LLM-for-Tourism\\Clustering\\2.1. WordEmbedding\\model\\BERT\\', config=BertConfig())
 tokenizer.model_max_length = 512
 tokenizer.init_kwargs['model_max_length'] = 512
 
 # Load pre-trained model (weights)
-model = AutoModel.from_pretrained('c:\\Users\\ecaudron001\\Documents\\GitHub\\LLM-for-Tourism\\Clustering\\2.1. WordEmbedding\\Roberta\\',
+model = AutoModel.from_pretrained(str(DirPpath.absolute()) + '\\LLM-for-Tourism\\Clustering\\2.1. WordEmbedding\\model\\BERT\\',
+                                   output_hidden_states = True, # Whether the model returns all hidden-states.
+                                   )
+
+
+""" Indexing Pledges with Mean Embedding """
+
+# converting text to numerical data using LLM model
+vectorsLLM = pledgeEmbedding(documents, tokenizer, model)
+
+DocIndexV1 = pd.DataFrame(vectorsLLM)# Outputting the indexed pledges file
+
+IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV3.csv"
+DocIndexV1.to_csv(IndexedPath)
+
+
+""" ROBERTA model """
+
+tokenizer = RobertaTokenizer.from_pretrained('roberta-base')
+
+
+# Load pre-trained model (weights)
+model = RobertaModel.from_pretrained('roberta-base', output_hidden_states = True) # Whether the model returns all hidden-states.
+
+
+""" Indexing Pledges with Mean Embedding """
+
+# converting text to numerical data using LLM model
+vectorsLLM = pledgeEmbedding(documents, tokenizer, model, Bert=False)
+
+DocIndexV1 = pd.DataFrame(vectorsLLM)# Outputting the indexed pledges file
+
+IndexedPath = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV4.csv"
+DocIndexV1.to_csv(IndexedPath)
+
+
+""" Fine-tuned LLM model """
+
+tokenizer = RobertaTokenizerFast.from_pretrained(str(DirPpath.absolute()) + '\\LLM-for-Tourism\\Clustering\\2.1. WordEmbedding\\model\\RoBERTa\\', config=RobertaConfig())
+tokenizer.model_max_length = 512
+tokenizer.init_kwargs['model_max_length'] = 512
+
+# Load pre-trained model (weights)
+model = AutoModel.from_pretrained(str(DirPpath.absolute()) + '\\LLM-for-Tourism\\Clustering\\2.1. WordEmbedding\\model\\RoBERTa\\',
                                    output_hidden_states = True, # Whether the model returns all hidden-states.
                                    )
 
