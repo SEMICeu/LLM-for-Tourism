@@ -10,8 +10,10 @@ def DocEmbedding(tokenized_text, tokenizer, model, Bert=True):
     print(Bert)
     if Bert == True:
            pad = '[PAD]'
+           seg = 1
     else:
            pad = '<pad>'
+           seg = 0
 
 
     padded_tokens = tokenized_text + [pad for _ in range(512-len(tokenized_text))]
@@ -28,7 +30,7 @@ def DocEmbedding(tokenized_text, tokenizer, model, Bert=True):
     print(len(attn_mask))
 
     # Mark each of the tokens as belonging to sentence "1".
-    segments_ids = [0] * len(attn_mask)
+    segments_ids = [seg] * len(attn_mask)
     print (segments_ids)
 
     # Convert inputs to PyTorch tensors
