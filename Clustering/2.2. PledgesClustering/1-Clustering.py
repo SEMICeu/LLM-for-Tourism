@@ -16,8 +16,8 @@ DirPpath = Path(os.path.abspath('')).parent # Fetching the current directory pat
 #IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV1.csv"
 #IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV2.csv"
 #IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV3.csv"
-#IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV4.csv"
-IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV5.csv"
+IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV4.csv"
+#IndexedPath  = str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\IndexedDataV5.csv"
 IndexedData = pd.read_csv(IndexedPath, index_col=0)  
 
 # Load the Topic column from the preprocessed data
@@ -82,8 +82,8 @@ ResultsDf["Area"] = areaList
 #ResultsDf.to_excel(str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\Clusters.xlsx")
 #ResultsDf.to_excel(str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\Clusters2.xlsx")
 #ResultsDf.to_excel(str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\Clusters3.xlsx")
-#ResultsDf.to_excel(str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\Clusters4.xlsx")
-ResultsDf.to_excel(str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\Clusters5.xlsx")
+ResultsDf.to_excel(str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\Clusters4.xlsx")
+#ResultsDf.to_excel(str(DirPpath.absolute()) + "\LLM-for-Tourism\Clustering\OutputFiles\Clusters5.xlsx")
 
 
 
