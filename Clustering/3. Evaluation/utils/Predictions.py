@@ -49,7 +49,7 @@ class GPTEval:
                                 ,{"role":"user","content":f"Here is the pledge to classify: {texts}. Only provide the Cluster number as output"}]
 
                 completion = openai.ChatCompletion.create(
-                    engine="basetest",
+                    deployment_id="gpt-4",
                     messages = MessageText,
                     temperature=0.7,
                     max_tokens=800,
@@ -61,9 +61,11 @@ class GPTEval:
 
                 self.prediction.append(re.sub(r'Cluster\s([0-9])', r'\1' ,completion.choices[0]["message"]["content"]))
                 i+=1
+                print(completion.choices[0]["message"]["content"])
 
             except: # Handling the token rate limit error
-                time.sleep(30)
+                print("sleeping")
+                time.sleep(60)
 
         return "Predictions obtained"
 
