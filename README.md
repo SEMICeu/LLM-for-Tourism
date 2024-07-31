@@ -39,7 +39,7 @@ To make the scraped content more amenable for training language models, the SEMI
 <br />
 
 <p align="center">
-    <img src="/Figures/CleaningProcess.png" height = 276 width = 624 class = "center">
+    <img src="/Figures/CleaningProcess.png" height = 74 width = 544 class = "center">
 </p>
 
 <p align="center" style="font-weight:bold;"> Figure 1: Overview of the cleaning process   </p>
