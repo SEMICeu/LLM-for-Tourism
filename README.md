@@ -1,33 +1,29 @@
-# Adaptation of Large Language Models for the public sector: A clustering use case
+# LLM-for-Tourism
 
 <div style='text-align: justify;'>
 
-Next to this report, the preparation of a conference paper to present the results to a technical audience is also part of this task. 
+This repository documents the implementation and evaluation of domain adaptation of Large Language Models as introduced in the paper Adaptation of Large Language Models for the public sector: A clustering use case. 
 
 ## Introduction
 
 Since 2023, the SEMIC action has started to upscale the usage of AI tools and methods to examine how AI-driven applications can complement and automate existing SEMIC assets (data models, vocabularies, tools). 
 
-Through this empirical study, the SEMIC team aims to further contribute to this effort by diving into the world of Large Language Models. With the advent of GPT, Llama2, etc., the world has discovered that these AI models trained on large generic corpora (Wikipedia, Web crawl, etc.) could perform various Text Mining and Natural Language Processing tasks very effectively (e.g., document summarisation, text generation, etc.).  
+Through this empirical study, the SEMIC team aims to further contribute to this effort by diving into the world of Large Language Models and domain adaptation. The objective of this study was to evaluate the potential benefits of retraining Large Language Models on language and domain-specific data, including policy documents and legislations. To achieve this, the SEMIC team needed to:    
 
-However, recent research has highlighted that, for certain domains, the model's performance could be even further improved by retraining it on a domain-specific corpus. For instance, several versions of BERT have been created for better fitting the needs of the financial sector, biomedical literature, clinical notes, or patents.  
+1. **Determine relevant domain-specific data sources and create a domain specific corpus.** 
+2. **Fine-tune or retrain two chosen language models on the domain corpus.** 
+3. **Test the performance in comparison to the generic language models on the chosen use case.**  
 
-In this context, the objective of this study was to evaluate the potential benefits of retraining Large Language Models on language and domain-specific data, including policy documents and legislations. To achieve this, the SEMIC team needed to:    
-
-1. Determine relevant domain-specific data sources and create a domain specific corpus. 
-2. Fine-tune or retrain two chosen language models on the domain corpus 
-3. Test the performance in comparison to the generic language models on the chosen use case.  
-
-The following sections will document the different steps and activities undertaken to achieve these objectives. An overview of the various steps involved in the empirical research process, as well as the limitations of the approach, will be presented.  
+The following sections document the different steps undertaken to achieve these objectives. 
 
 ## *1-DataCollection*: Building a domain specific corpus
-The first step of the study consisted in the definition of an appropriate corpus for retraining Large Language Models on domain specific data. The approach followed by the SEMIC team to define a corpus of relevant text and make it suitable for domain adaptation of Large Language Models is described below.   
+The first step of the study consists in the definition of an appropriate corpus for retraining Large Language Models on domain specific data. The approach followed by the SEMIC team to define a corpus of relevant text and make it suitable for domain adaptation of Large Language Models is described below.   
 
 ### Defining a corpus of relevant text 
 
-As a reminder, to achieve the retraining of Large Language Models, a corpus of text specific to the domain of interest needed to be defined. For this activity the retrained models were used to cluster pledges on the Transition Pathway for Tourism of the European Commission.  
+To achieve the retraining of Large Language Models, a corpus of text specific to the domain of interest needs to be defined. For this activity the retrained models were used to cluster pledges on the Transition Pathway for Tourism of the European Commission.  
 
-Therefore, for building a domain corpus the SEMIC team searched for publications revolving around this topic. Based on the recommendation of DG GROW, the following document [Transition Pathway for Tourism](https://op.europa.eu/s/y7Ht) which describes the different measures and outputs related to the implementation of the Transition Pathway for Tourism was used as a point of reference.  
+Therefore, for building a domain corpus the SEMIC team searched for publications revolving around this topic. The following document [Transition Pathway for Tourism](https://op.europa.eu/s/y7Ht) which describes the different measures and outputs related to the implementation of the Transition Pathway for Tourism was used as a point of reference.  
 
 Using a PDF scraping package from Python ([pikepdf](https://pikepdf.readthedocs.io/en/latest/)), 200 distinct URL links to websites or online PDFs, of which 183 were links to EU websites and documents, were extracted. After the removal of unproper links (typing errors, outdated references, …) and the addition of extra relevant resources (updated locations, additional resources to download on websites, …) a final set of 225 URLs to visit was defined.  
 
@@ -35,7 +31,7 @@ For each of the visited links, different scraping libraries from Python ([Seleni
 
 ### Cleaning the text  
 
-To make the scraped content more amenable for training language models, the SEMIC team applied a series of transformations to clean the corpus: 
+To make the scraped content more amenable for training language models, a series of transformations to clean the corpus needed to be applied: 
 <br />
 
 <p align="center">
@@ -54,7 +50,6 @@ After the application of the different cleaning steps, the SEMIC team performed 
 
 The final corpus contained 225 documents ready to train language models. Some key figures about this final training corpus were gathered (see Table 1). 
 <br />
-
 <div style="width: 100%; display: flex; justify-content: center;">   
   <table width="100%">  
     <tbody>  
@@ -105,9 +100,7 @@ It was chosen to rely on a task-adaptative pre-training to fine-tune the model t
 Regarding the choice of models to fine-tune, it was decided to evaluate the impact of domain adaptation for BERT ([bert-base-uncased](https://huggingface.co/bert-base-uncased)) and RoBERTa ([roberta-base](https://huggingface.co/roberta-base)). The decision was motivated by different factors: 
 
 - **Clustering capabilities**: The models needed to be suited for the underlying task of this study, i.e., text clustering. Compared to other models (e.g., BLOOM), BERT and RoBERTa, as embedding models, have shown good capabilities in these specific natural language processing tasks. 
-
 - **Open-source**: By choosing for an open-source model black-box effect could be avoided. In addition, it allowed to limit the costs, and to facilitate the dissemination of the results. Both models can be freely accessed through Huggingface.  
-
 - **Size of the model**: To limit the training time and computational requirements, the models needed to be reasonable in terms of size.    
 
 ### Infrastructure 
