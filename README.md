@@ -42,8 +42,7 @@ To make the scraped content more amenable for training language models, the SEMI
     <img src="/Figures/CleaningProcess.png" height = 276 width = 624 class = "center">
 </p>
 
-<center style="font-weight:bold;"> Figure 1: Overview of the cleaning process   </center>
-<br />
+<p align="center" style="font-weight:bold;"> Figure 1: Overview of the cleaning process   </p>
 
 Firstly, built-in functions from the Python string library were used to replace contractions (e.g., we’ll, we’re, …) and switch words to lowercase. Then, unnecessary characters, i.e., elements that do not bring any semantic value to the text, were removed by relying on regular expressions. This included URLs, non-alphanumeric characters, trailing and leading whitespaces, and double/triple whitespaces. 
 
@@ -79,8 +78,7 @@ The final corpus contained 225 documents ready to train language models. Some ke
   </table>  
 </p> 
 
-<center style="font-weight:bold;"> Table 1: Basic information on the training corpus  </center>
-<br />
+<p align="center" style="font-weight:bold;"> Table 1: Basic information on the training corpus  </p>
 From Table 1, it can be seen that the size of the training corpus was approximately equal to 2 million tokens. Though significantly small compared to the 3.3 billion tokens used for pre-training BERT and RoBERTa, this corpus had the advantage of only containing data very specific to the target task, an advantage that can provide a better target domain adaptation. In addition, relying on this approach allowed to limit the training costs.    
 
 An alternative to this approach that was envisaged by the SEMIC team was the use of a larger corpus of data on tourism using Wikipedia data. To gain an insight on the impact of using a larger corpus of data, the SEMIC team also considered to use [TourBERT](https://arxiv.org/abs/2201.07449) during this study. This model was trained from scratch on a large set of text on tourism.   
@@ -99,8 +97,7 @@ Adapting a language model to specific domains and tasks is not a new topic in th
     <img src="/Figures/DomainAdaptation.png" height = 270 width = 400 class = "center">
 </p>
 
-<center style="font-weight:bold;"> Figure 2: Example of taxonomy of domain specialisation </center>
-<br />
+<p align="center" style="font-weight:bold;"> Figure 2: Example of taxonomy of domain specialisation </p>
 It was chosen to rely on a task-adaptative pre-training to fine-tune the model to the domain of interest. To put it simply, the SEMIC team fine-tuned a pre-trained LLMs on a mask modelling task with the domain corpus as training data. With this approach (which was also used for training FinBERT), it was possible to benefit from the general language knowledge of the model and tweak it for a better semantic understanding of the domain language. This also allowed to maintain low training costs compared to a training from scratch as TourBERT or SciBERT.        
 
 ### Choice of model 
@@ -122,8 +119,7 @@ From a technical perspective, the models were fine-tuned on an AWS infrastructur
     <img src="/Figures/AWSArchi.png" height = 250 width = 370 class = "center">
 </p>
 
-<center style="font-weight:bold;"> Figure 3: High-level architecture of the training on AWS </center>
-<br />
+<p align="center" style="font-weight:bold;"> Figure 3: High-level architecture of the training on AWS </p>
 
 - An Amazon Sagemaker training instance (on a *ml.p3.2xlarge* instance as recommended by Huggingface) was used for training both models.  
 - The training job was initiated by fitting a HuggingfaceEstimator object.  
@@ -165,8 +161,7 @@ Then, before indexing each sentence, the following step consisted in creating th
     <img src="/Figures/EvaluationProcess.png" height = 350 width = 790 class = "center">
 </p>
 
-<center style="font-weight:bold;"> Figure 4: Overview of the pledge embedding process. </center>
-<br />
+<p align="center" style="font-weight:bold;"> Figure 4: Overview of the pledge embedding process. </p>
 
 Finally, the last step applied to achieve document indexing was to combine the different sentence embeddings into a single pledge embedding. In other words, to obtain a single vector for each pledge, the different sentence embeddings of the pledge needed to be pooled. To do this, an average operator was used, i.e., the pledge embedding is equal to the average of its word embeddings. 
 
@@ -187,8 +182,7 @@ As displayed on Figure 5, 2D-tsne plots were first used to get an intuition on t
     <img src="/Figures/Results.png" height = 350 width = 790 class = "center">
 </p>
 
-<center style="font-weight:bold;"> Figure 5: 2D-tsne plots (top) and elbow graphs (bottom) for BERT and RoBERTa in their pretrained (left) and retrained (right) format. </center>
-<br />
+<p align="center" style="font-weight:bold;"> Figure 5: 2D-tsne plots (top) and elbow graphs (bottom) for BERT and RoBERTa in their pretrained (left) and retrained (right) format. </p>
 
 It is noteworthy to mention that using TourBERT allowed to create high quality clusters from a visual point of view. It suggests that training a LLM from scratch on a large corpus of domain specific data (here tourism) may have a positive impact on the clustering quality. 
 
@@ -207,8 +201,6 @@ To achieve this, labels first needed to be defined to summarise the content of t
 To ensure the quality of the approach, a first set of tests were performed on the Word2Vec clusters which had been humanely analysed during the previous phase. Appendix I shows an example of summary generated by GPT when provided with the pledges from the “Digital” cluster. After this validation, it was decided to repeat the process for the clusters of the remaining models (see examples in Appendix I). Looking at the few examples displayed below, it was already noticed that the content of clusters tended to be broader when using more complex models, i.e., BERT and RoBERTa.  
 
 Having defined a set of labels, the next step consisted in finding which cluster was the most appropriate for each pledge from a content perspective. Once again, GPT was used as a human emulator to accelerate the process (Appendix II shows examples of outputs for Word2Vec). The results were then compared to the cluster repartition made by the different models to obtain an accuracy and F1-score.  
-<br />
-
 <p align="center">    
   <table width="100%" cellspacing="0" cellpadding="5" style="border-collapse: collapse;">    
     <tbody>  
@@ -257,8 +249,7 @@ Having defined a set of labels, the next step consisted in finding which cluster
   </table>    
 </p> 
 
-<center style="font-weight:bold;"> Table 2: Overview of the cluster validation metrics  </center>
-<br />
+<p align="center" style="font-weight:bold;"> Table 2: Overview of the cluster validation metrics  </p>
 
 Overall, the final results tended to confirm the conclusions made after the definition of cluster’s labels. It appeared that more complex models created less coherent, or less interpretable, clusters from a content perspective (broader set of pledges, no clear common topic from a high-level point of view). However, it was seen that the retraining tended to have a positive impact on the accuracy and F1-score.
 
