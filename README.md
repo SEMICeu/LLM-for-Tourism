@@ -56,7 +56,7 @@ The final corpus contained 225 documents ready to train language models. Some ke
 <br />
 
 <p align="center">  
-  <table width="70%">  
+  <table>  
     <tbody>  
       <tr>  
         <td>Number of distinct documents </td>  
@@ -202,7 +202,7 @@ To ensure the quality of the approach, a first set of tests were performed on th
 
 Having defined a set of labels, the next step consisted in finding which cluster was the most appropriate for each pledge from a content perspective. Once again, GPT was used as a human emulator to accelerate the process (Appendix II shows examples of outputs for Word2Vec). The results were then compared to the cluster repartition made by the different models to obtain an accuracy and F1-score.  
 <p align="center">    
-  <table width="100%" cellspacing="0" cellpadding="5" style="border-collapse: collapse;">    
+  <table>    
     <tbody>  
       <tr>    
         <td> </td>    
