@@ -55,7 +55,7 @@ After the application of the different cleaning steps, the SEMIC team performed 
 The final corpus contained 225 documents ready to train language models. Some key figures about this final training corpus were gathered (see Table 1). 
 <br />
 
-<div style="display: flex; justify-content: center;">    
+<div style="width: 100%; display: flex; justify-content: center;">   
   <table width="100%">  
     <tbody>  
       <tr>  
