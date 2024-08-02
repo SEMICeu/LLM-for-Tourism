@@ -8,16 +8,16 @@ This repository documents the implementation and evaluation of domain adaptation
 
 Since 2023, the SEMIC action has started to upscale the usage of AI tools and methods to examine how AI-driven applications can complement and automate existing SEMIC assets (data models, vocabularies, tools). 
 
-Through this empirical study, the SEMIC team aims to further contribute to this effort by diving into the world of Large Language Models and domain adaptation. The objective of this study was to evaluate the potential benefits of retraining Large Language Models on language and domain-specific data, including policy documents and legislations. To achieve this, the SEMIC team needed to:    
+Through this empirical study, the SEMIC team aimed to further contribute to this effort by diving into the world of Large Language Models and domain adaptation. The objective of the study was to evaluate the potential benefits of retraining Large Language Models on language and domain-specific data, including policy documents and legislations. To achieve this, the SEMIC team needed to:    
 
 1. **Determine relevant domain-specific data sources and create a domain specific corpus.** 
 2. **Fine-tune or retrain two chosen language models on the domain corpus.** 
 3. **Test the performance in comparison to the generic language models on the chosen use case.**  
 
-The following sections document the different steps undertaken to achieve these objectives. 
+The following sections document the different steps undertaken to achieve these objectives by deep-diving into the three main folders of this repository. 
 
 ## *1-DataCollection*: Building a domain specific corpus
-The first step of the study consists in the definition of an appropriate corpus for retraining Large Language Models on domain specific data. The approach followed by the SEMIC team to define a corpus of relevant text and make it suitable for domain adaptation of Large Language Models is described below.   
+The first step of the study consisted in the definition of an appropriate corpus for retraining Large Language Models on domain specific data. The approach followed by the SEMIC team to define a corpus of relevant text and make it suitable for domain adaptation of Large Language Models is described below.   
 
 ### Defining a corpus of relevant text 
 
@@ -46,7 +46,7 @@ Finally, an extra cleaning step was necessary to handle syntactic errors generat
 
 ### Corpus exploration 
 
-After the application of the different cleaning steps, the SEMIC team performed a short exploration of the corpus. This short step allowed to get a get a first intuition on the impact that the retraining could have.  
+After the application of the different cleaning steps, the SEMIC team performed a short exploration of the corpus (stored in [Files folder](https://github.com/SEMICeu/LLM-for-Tourism/tree/main/1-DataCollection/Files)). This short step allowed to get a first intuition on the impact that the retraining could have.  
 
 The final corpus contained 225 documents ready to train language models. Some key figures about this final training corpus were gathered (see Table 1). 
 <br />
@@ -105,7 +105,7 @@ Regarding the choice of models to fine-tune, it was decided to evaluate the impa
 
 ### Infrastructure 
 
-From a technical perspective, the models were fine-tuned on an AWS infrastructure:  
+From a technical perspective, the models were fine-tuned on an AWS infrastructure (with the scripts stored in [Fine-tuning AWS](https://github.com/SEMICeu/LLM-for-Tourism/tree/main/2-Fine-tuning/Fine-tuning%20AWS)):  
 <br />
 
 <p align="center">
@@ -166,84 +166,18 @@ Based on the analysis made during the previous phase, it appeared that six pledg
 
 ### Intrinsic validation 
 
-To assess the quality of the clusters, an intrinsic method was first applied, i.e., the quality was assessed by examining how well the clusters were separated and how compact they were. Three different approaches were chosen to evaluate this internal quality. 
+To assess the quality of the clusters, an intrinsic method was first applied, i.e., the quality was assessed by examining how well the clusters were separated and how compact they were. Three different approaches were chosen to evaluate this internal quality ([IntrinsicVal.py](https://github.com/SEMICeu/LLM-for-Tourism/blob/main/Clustering/3.%20Evaluation/IntrinsicVal.py)). 
 
-As displayed on Figure 5, 2D-tsne plots were first used to get an intuition on the impact of the domain-specific training on the intrinsic cluster validity. Regarding BERT, it could be seen that the retraining had little to no effect on the coherence of the clusters. Nevertheless, compared to Word2Vec, both the pre-trained and retrained versions of BERT appeared to generate more coherent results. The analysis of RoBERTa results led to similar conclusions with significantly less coherent results with the retrained RoBERTa.  
-<br />
-
-<p align="center">
-    <img src="/Figures/Results.png" height = 350 width = 790 class = "center">
-</p>
-
-<p align="center" style="font-weight:bold;"> Figure 5: 2D-tsne plots (top) and elbow graphs (bottom) for BERT and RoBERTa in their pretrained (left) and retrained (right) format. </p>
-
-It is noteworthy to mention that using TourBERT allowed to create high quality clusters from a visual point of view. It suggests that training a LLM from scratch on a large corpus of domain specific data (here tourism) may have a positive impact on the clustering quality. 
-
-Next to the visual exploration, two quantitative measures were computed to evaluate the goodness of the clustering structure: the WSS/TSS (visualised by elbow graphs) and the silhouette score. Both metrics allow to quantify the internal cluster coherence.  
-
-The results of both metrics confirmed the intuition carried over by the visual exploration.  
-
-In summary, the intrinsic cluster validation suggested that retraining BERT and RoBERTa on a corpus on the Transition Pathway for tourism had at best a neutral impact on the quality of the clustering.
+2D-tsne plots were first used to get an intuition on the impact of the domain-specific training on the intrinsic cluster validity. Next to the visual exploration, two quantitative measures were computed to evaluate the goodness of the clustering structure: the WSS/TSS (visualised by elbow graphs) and the silhouette score. Both metrics allow to quantify the internal cluster coherence.  
 
 ### Extrinsic validation 
 
-Next to the quantitative evaluation of the cluster coherence, an additional assessment was performed to evaluate the coherence of clusters from a content perspective, i.e., whether the clusters would make sense from a human perspective.  
+Next to the quantitative evaluation of the cluster coherence, an additional assessment was performed to evaluate the coherence of clusters from a content perspective, i.e., whether the clusters would make sense from a human perspective ([ExtrinsicVal.py](https://github.com/SEMICeu/LLM-for-Tourism/blob/main/Clustering/3.%20Evaluation/ExtrinsicVal.py)).  
 
 To achieve this, labels first needed to be defined to summarise the content of the clusters. To accelerate the labelling process, it was decided to rely on a GPT-based approach, i.e., providing GPT with all the pledges of a cluster, it was asked to give their common topic.  
 
-To ensure the quality of the approach, a first set of tests were performed on the Word2Vec clusters which had been humanely analysed during the previous phase. Appendix I shows an example of summary generated by GPT when provided with the pledges from the “Digital” cluster. After this validation, it was decided to repeat the process for the clusters of the remaining models (see examples in Appendix I). Looking at the few examples displayed below, it was already noticed that the content of clusters tended to be broader when using more complex models, i.e., BERT and RoBERTa.  
+To ensure the quality of the approach, a first set of tests were performed on the Word2Vec clusters which had been humanely analysed during the previous phase. Appendix I shows an example of summary generated by GPT when provided with the pledges from the “Digital” cluster. After this validation, it was decided to repeat the process for the clusters of the remaining models.  
 
-Having defined a set of labels, the next step consisted in finding which cluster was the most appropriate for each pledge from a content perspective. Once again, GPT was used as a human emulator to accelerate the process (Appendix II shows examples of outputs for Word2Vec). The results were then compared to the cluster repartition made by the different models to obtain an accuracy and F1-score.  
-<div style="display: flex; justify-content: center;">  
-  <table width="100%" cellspacing="0" cellpadding="5" style="border-collapse: collapse;">    
-    <tbody>  
-      <tr>    
-        <td> </td>    
-        <td style="text-align:center; font-weight:bold; border-right: 3px solid black;">Intrinsic</td>  
-        <td colspan="2" style="text-align:center;">Extrinsic</td>       
-      </tr>     
-      <tr>    
-        <td> </td>    
-        <td style="text-align:center; font-style:italic; border-right: 3px solid black;">Silhouette score</td>  
-        <td style="text-align:center; font-style:italic;">Accuracy</td>  
-        <td style="text-align:center; font-style:italic;">F1-score</td>       
-      </tr>     
-      <tr>    
-        <td>Word2Vec </td>    
-        <td style="text-align:center; border-right: 3px solid black;">0.04</td>  
-        <td style="text-align:center; font-style:italic;">0.48</td>  
-        <td style="text-align:center; font-style:italic;">0.47</td>       
-      </tr>    
-      <tr>    
-        <td>BERT </td>    
-        <td style="text-align:center; border-right: 3px solid black;">0.07</td>  
-        <td style="text-align:center; font-style:italic;">0.22</td>  
-        <td style="text-align:center; font-style:italic;">0.25</td>       
-      </tr>    
-      <tr>    
-        <td>Fine-tuned BERT </td>    
-        <td style="text-align:center; border-right: 3px solid black;">0.08</td>  
-        <td style="text-align:center; font-style:italic;">0.29</td>  
-        <td style="text-align:center; font-style:italic;">0.34</td>       
-      </tr>    
-      <tr>    
-        <td>RoBERTa </td>    
-        <td style="text-align:center; font-weight:bold; border-right: 3px solid black;">0.17</td>  
-        <td style="text-align:center; font-style:italic;">0.21</td>  
-        <td style="text-align:center; font-style:italic;">0.19</td>       
-      </tr>    
-      <tr>    
-        <td>Fine-tuned RoBERTa </td>    
-        <td style="text-align:center; border-right: 3px solid black;">0.002</td>  
-        <td style="text-align:center; font-style:italic;">0.30</td>  
-        <td style="text-align:center; font-style:italic;">0.35</td>       
-      </tr>      
-    </tbody>    
-  </table>    
-</div> 
-
-<p align="center" style="font-weight:bold;"> Table 2: Overview of the cluster validation metrics  </p>
-
-Overall, the final results tended to confirm the conclusions made after the definition of cluster’s labels. It appeared that more complex models created less coherent, or less interpretable, clusters from a content perspective (broader set of pledges, no clear common topic from a high-level point of view). However, it was seen that the retraining tended to have a positive impact on the accuracy and F1-score.
+Having defined a set of labels, the next step consisted in finding which cluster was the most appropriate for each pledge from a content perspective. Once again, GPT was used as a human emulator to accelerate the process. The results were then compared to the cluster repartition made by the different models to obtain an accuracy and F1-score. 
 
 </div>
